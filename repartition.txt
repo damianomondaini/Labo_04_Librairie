@@ -1,0 +1,19 @@
+Anthony Jost
+- nbre1er
+- sommeChiffres
+- nbreArmstrong
+
+Damiano Mondaini
+- buffer
+- trigo
+- random
+
+Fonctions
+- estPair
+- sommeChiffres
+- nbre1er
+- nbreArmstrong
+- random
+- buffer
+- trigo
+- repondOui             // TODO
