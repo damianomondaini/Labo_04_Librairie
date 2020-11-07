@@ -16,6 +16,7 @@
 #include <ctime>                    // Gestion du temps
 #include <cctype>                   // Opérations sur le buffer
 #include <cassert>                  // TODO
+#include <string>
 
 
 #include "librairie.h"              // Librairie personnalisée
@@ -40,21 +41,69 @@ int main() {
 			  << "    7   trigo" 				  << endl
 			  << "    0   quitter" 				  << endl
 			  											  << endl;
-		const string choixTexte = "votre choix [0 - 7] : ";
+
 		int choixMin = 0,
 			 choixMax = 7;
-
+		string choixTexte = "votre choix [" + to_string(choixMin) + " - " + to_string(choixMax) + "] : ";
 		verifSaisie(choixTexte, choixOptions, choixMin, choixMax);
 
-		switch(Fonction (choixOptions)){
-			case Fonction::EST_PAIR :
+		switch((Fonction) choixOptions){
+			case Fonction::EST_PAIR :{
+				int valeur,
+					 valeurMin = 0,
+					 valeurMax = 1000;
+				string texteFonction1 = "entrer une valeur [" + to_string(valeurMin) + " - " + to_string(valeurMax) + "] : ";
+				verifSaisie(texteFonction1, valeur, valeurMin, valeurMax);
+				cout << valeur << " est une valeur ";
+				if(!estPair(valeur)) {
+					cout << "im";
+				}
+				cout << "pair" << endl << endl;
 				break;
-			case Fonction::SOMME_CHIFFRES :
+			}
+			case Fonction::SOMME_CHIFFRES :{
+				int valeur,
+					 valeurMin = 0,
+					 valeurMax = 1000;
+				string texteFonction2 = "entrer une valeur [" + to_string(valeurMin) + " - " + to_string(valeurMax) + "] : ";
+				verifSaisie(texteFonction2, valeur, valeurMin, valeurMax);
+				cout << "La somme des chiffres de " << valeur << " = " << sommeChiffres(valeur) << endl << endl;
 				break;
-			case Fonction::NBRE1ER :
-				break;
-			case Fonction::NBRE_ARMSTRONG :
-				break;
+			}
+			case Fonction::NBRE1ER :{
+				int valeur,
+					 valeurMin = 0,
+					 valeurMax = 1000;
+				string texteFonction3 = "     - debut : [" + to_string(valeurMin) + " - " + to_string(valeurMax) + "] : ";
+				cout << "Determiner les nombres premiers compris dans un intervalle" << endl;
+				verifSaisie(texteFonction3, valeur, valeurMin, valeurMax);
+				valeurMin = valeur;
+				texteFonction3 = "     - fin   : [" + to_string(valeurMin) + " - " + to_string(valeurMax) + "] : ";
+				verifSaisie(texteFonction3, valeur, valeurMin, valeurMax);
+				valeurMax = valeur;
+				for(int i = valeurMin; i <= valeurMax; ++i){
+					if(nbre1er(i)){
+						cout << "Le nombre " << i << " est un nombre premier" << endl;
+					}
+				}
+			}
+			case Fonction::NBRE_ARMSTRONG :{
+				int valeur,
+					 valeurMin = 0,
+					 valeurMax = 1000;
+				string texteFonction4 = "     - debut : [" + to_string(valeurMin) + " - " + to_string(valeurMax) + "] : ";
+				cout << "Determiner les nombres de Armstrong compris dans un intervalle" << endl;
+				verifSaisie(texteFonction4, valeur, valeurMin, valeurMax);
+				valeurMin = valeur;
+				texteFonction4 = "     - fin   : [" + to_string(valeurMin) + " - " + to_string(valeurMax) + "] : ";
+				verifSaisie(texteFonction4, valeur, valeurMin, valeurMax);
+				valeurMax = valeur;
+				for(int i = valeurMin; i <= valeurMax; ++i){
+					if(nbreArmstrong(i)){
+						cout << "Le nombre " << i << " est un nombre de Armstrong" << endl;
+					}
+				}
+			}
 			case Fonction::RANDOM :
 				break;
 			case Fonction::BUFFER :
@@ -76,7 +125,7 @@ void verifSaisie(const string& texte, int& valeur, int borneInf, int borneSup) {
 	bool saisieOK;
 
 	do{
-		cout << texte << endl;
+		cout << texte;
 		saisieOK = cin >> valeur && valeur >= borneInf && valeur <= borneSup;
 		if(!saisieOK){
 			cin.clear();
