@@ -19,3 +19,4 @@ void trigo(double angle, double& sinus, double& cosinus, double& tangente);
 int random(int borneInf, int borneSup);
 
 #endif //LABO_04_LIBRAIRIE_LIBRAIRIE_H
+
