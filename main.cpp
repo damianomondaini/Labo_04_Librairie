@@ -104,7 +104,43 @@ int main() {
 					}
 				}
 			}
-			case Fonction::RANDOM :
+			case Fonction::RANDOM :{
+			   // Déclaration des valeurs min et max par défaut
+            int valeur,
+               valeurMin = -100,
+               valeurMax = 100,
+               qte,
+               qteMin = 0,
+               qteMax = 100;
+
+            // Choix de la valeur min
+            string texteFonction5 = "     - min   : [" + to_string(valeurMin) + " - " + to_string(valeurMax) + "] : ";
+            verifSaisie(texteFonction5, valeur, valeurMin, valeurMax);
+            valeurMin = valeur;
+
+            // Choix de la valeur max
+            texteFonction5 = "     - max   : [" + to_string(valeurMin) + " - " + to_string(valeurMax) + "] : ";
+            verifSaisie(texteFonction5, valeur, valeurMin, valeurMax);
+            valeurMax = valeur;
+
+            // Choix de nombre d'élément à générer
+            texteFonction5 = "     - nbre  : [" + to_string(qteMin) + " - " + to_string(qteMax) + "] : ";
+            verifSaisie(texteFonction5, qte, qteMin, qteMax);
+
+            // Génération et affichage des nombres aléatoires
+            cout << "Voici des valeurs aleatoires [" + to_string(valeurMin) + " - " + to_string(valeurMax) + "] : " << endl;
+            for(int noGeneration = 1; noGeneration <= qte; ++noGeneration){
+               cout << random(valeurMin, valeurMax);
+               if(noGeneration != qte){
+                  cout << ", ";
+               }
+               if(noGeneration % 10 == 0){
+                  cout << endl;
+               }
+            }
+            cout << endl;
+
+         }
 				break;
 			case Fonction::BUFFER :
 				break;

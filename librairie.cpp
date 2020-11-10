@@ -2,12 +2,31 @@
 // Created by damia on 05.11.2020.
 //
 
+#include <cmath>
+#include <cstdlib>
 #include "librairie.h"
-#include "cmath"
 
 bool estPair(int valeur){
    bool estPair = valeur % 2 == 0;
    return estPair;
+}
+
+void trigo(double angleDeg, double& sinus, double& cosinus, double& tangente){
+   double angleRad = angleDeg * M_PI / 180;
+   sinus = sin(angleRad);
+   cosinus = cos(angleRad);
+   tangente = tan(angleRad);
+}
+
+int random(int borneInf, int borneSup){
+   int valeurMaxRand = borneSup - borneInf + 1;
+   int reste = RAND_MAX % valeurMaxRand;
+   int valeurAleatoire;
+   do
+   {
+      valeurAleatoire = rand();
+   } while (valeurAleatoire >= RAND_MAX - reste);
+   return borneInf + valeurAleatoire % valeurMaxRand;
 }
 
 int sommeChiffres(int valeur){

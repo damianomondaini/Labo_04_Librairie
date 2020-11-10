@@ -13,4 +13,9 @@ bool nbre1er(int valeur);
 
 bool nbreArmstrong(int valeur);
 
+void trigo(double angle, double& sinus, double& cosinus, double& tangente);
+
+// Code source: https://stackoverflow.com/a/11766794
+int random(int borneInf, int borneSup);
+
 #endif //LABO_04_LIBRAIRIE_LIBRAIRIE_H
