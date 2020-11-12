@@ -4,6 +4,9 @@
 
 #include <cmath>
 #include <cstdlib>
+#include <string>
+#include <iostream>
+#include <cctype>
 #include "librairie.h"
 
 bool estPair(int valeur){
@@ -66,4 +69,26 @@ bool nbreArmstrong(int valeur) {
 		nbreArmstrong = false;
 	}
 	return nbreArmstrong;
+}
+
+unsigned int buffer(const std::string& contenuBuffer, char& lettreMin, char& lettreMaj) {
+   lettreMin = 127;
+   lettreMaj = 0;
+   // Boucle sur chaque caractère
+   for (char charPos : contenuBuffer) { // Condition suggérée par CLion
+      // Test si le caractère est alphabètique
+      if (isalpha(charPos)) {
+         // Test si le caractère est minuscule
+         if (islower(charPos)) {
+            if (charPos < lettreMin) {
+               lettreMin = charPos;
+            }
+         } else { // Sinon le caractère est majuscule
+            if (charPos > lettreMaj) {
+               lettreMaj = charPos;
+            }
+         }
+      }
+   }
+   return contenuBuffer.length();
 }

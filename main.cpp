@@ -109,7 +109,6 @@ int main() {
             int valeur,
                valeurMin = -100,
                valeurMax = 100,
-               qte,
                qteMin = 0,
                qteMax = 100;
 
@@ -125,13 +124,13 @@ int main() {
 
             // Choix de nombre d'élément à générer
             texteFonction5 = "     - nbre  : [" + to_string(qteMin) + " - " + to_string(qteMax) + "] : ";
-            verifSaisie(texteFonction5, qte, qteMin, qteMax);
+            verifSaisie(texteFonction5, valeur, qteMin, qteMax);
 
             // Génération et affichage des nombres aléatoires
             cout << "Voici des valeurs aleatoires [" + to_string(valeurMin) + " - " + to_string(valeurMax) + "] : " << endl;
-            for(int noGeneration = 1; noGeneration <= qte; ++noGeneration){
+            for(int noGeneration = 1; noGeneration <= valeur; ++noGeneration){
                cout << random(valeurMin, valeurMax);
-               if(noGeneration != qte){
+               if(noGeneration != valeur){
                   cout << ", ";
                }
                if(noGeneration % 10 == 0){
@@ -142,8 +141,14 @@ int main() {
 
          }
 				break;
-			case Fonction::BUFFER :
-				break;
+			case Fonction::BUFFER : {
+			   // TODO
+            string saisie;
+            char lettreMin, lettreMaj;
+            cin >> saisie;
+            unsigned int todo = buffer(saisie, lettreMin, lettreMaj);
+            break;
+         }
 			case Fonction::TRIGO :
 				break;
 			case Fonction::REPOND_OUI :

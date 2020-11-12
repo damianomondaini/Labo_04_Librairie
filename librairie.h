@@ -15,6 +15,8 @@ bool nbreArmstrong(int valeur);
 
 void trigo(double angle, double& sinus, double& cosinus, double& tangente);
 
+unsigned int buffer(const std::string& contenuBuffer, char& lettreMin, char& lettreMaj);
+
 // Code source: https://stackoverflow.com/a/11766794
 int random(int borneInf, int borneSup);
 
