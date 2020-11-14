@@ -142,11 +142,30 @@ int main() {
          }
 				break;
 			case Fonction::BUFFER : {
-			   // TODO
+			   // Déclaration des variables pour stocker la saisie de l'utilisateur et exécuter la fonction buffer
+            const char CHAR_MIN_BUFFER = 127;
+            const char CHAR_MAJ_BUFFER = 0;
             string saisie;
             char lettreMin, lettreMaj;
-            cin >> saisie;
-            unsigned int todo = buffer(saisie, lettreMin, lettreMaj);
+
+            // Récupération de la saisie de l'utilisateur
+            cout << "entrer une phrase : ";
+            getline(cin, saisie);
+
+            // Appel à la fonction buffer
+            unsigned int nbreCharTraites = buffer(saisie, lettreMin, lettreMaj);
+
+            // Affichage des informations traitées par la fonction buffer
+            if (lettreMin != CHAR_MIN_BUFFER) {
+               cout << "la plus petite minuscule : " << lettreMin << endl;
+            }
+
+            if (lettreMaj != CHAR_MAJ_BUFFER) {
+               cout << "la plus grande majuscule : " << lettreMaj << endl;
+            }
+
+               cout << "le nbre de caracteres    : " << nbreCharTraites << endl << endl;
+
             break;
          }
 			case Fonction::TRIGO :
