@@ -168,8 +168,27 @@ int main() {
 
             break;
          }
-			case Fonction::TRIGO :
+			case Fonction::TRIGO : {
+            // Déclaration des valeurs min et max par défaut et sin, cos et tan.
+            int valeur,
+               valeurMin = 0,
+               valeurMax = 360;
+            double sin, cos, tan;
+
+            // Récupération de la saisie de l'utilisateur
+            string texteFonction7 = "entrer une valeur [" + to_string(valeurMin) + " - " + to_string(valeurMax) + "] : ";
+            verifSaisie(texteFonction7, valeur, valeurMin, valeurMax);
+
+            // Appel à la fonction trigo
+            trigo(valeur, sin, cos, tan);
+
+            // Affichage des valeurs du cos, sin et tan de l'angle saisie
+            cout << "sin(" << valeur << ") = " << sin << endl;
+            cout << "cos(" << valeur << ") = " << cos << endl;
+            cout << "tan(" << valeur << ") = " << tan << endl << endl;
+
 				break;
+			}
 			case Fonction::REPOND_OUI :
 				break;
 			default :
