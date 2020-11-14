@@ -5,7 +5,6 @@
 #include <cmath>
 #include <cstdlib>
 #include <string>
-#include <iostream>
 #include <cctype>
 #include "librairie.h"
 
