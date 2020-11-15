@@ -3,24 +3,12 @@
   Fichier     : main.cpp
   Nom du labo : Labo 04 Librairie
   Auteur(s)   : Anthony Jost, Damiano Mondaini
-  Date        : 05.11.200
-  But         : - Ecrire une librairie mettant à disposition les 8 fonctions
-                  suivantes:
+  Date        : 05.11.2020
+  But         : Utiliser les fonctions de la librairie "librairie.cpp"
+  					 et mettre à disposition un menu servant à utiliser
+  					 ces fonctions.
 
-                  1) estPair
-                  2) sommeChiffres
-                  3) nbre1er
-                  4) nbreArmstrong
-                  5) random
-                  6) buffer
-                  7) trigo
-                  8) repondOui
-                - La librairie doit être réutilisable (pas de valeurs en dur)
-
-  Remarque(s) : - La librairie doit être externe au fichier principal
-                  (compilation séparée)
-                - Utilisation de types énumérés, boucles et fonctions
-                  demandée
+  Remarque(s) : -
   Compilateur : Mingw-w64 g++ 8.1.0
   ---------------------------------------------------------------------------
 */
@@ -28,6 +16,7 @@
 #include <iostream>                 // Gestion du flux
 #include <cstdlib>                  // EXIT_SUCCESS et EXIT_FAILURE
 #include <string>                   // Utilisation du type string et ses méthodes
+#include <limits>							// numeric_limits
 
 
 #include "librairie.h"              // Librairie personnalisée
@@ -43,6 +32,9 @@ void verifSaisie(const string& texte, int& valeur, int borneInf, int borneSup);
 
 int main() {
 
+	const char OUI = 'o',
+				  NON = 'n';
+
 	int choixOptions; // Récupère le choix de l'utilisateur
 	bool veutQuitter = false;
 
@@ -57,27 +49,32 @@ int main() {
 			  << "    6   buffer" 				  << endl
 			  << "    7   trigo" 				  << endl
 			  << "    0   quitter" 				  << endl
-			  											  << endl;
+			  << endl;
 
 		// Vérification de la saisie de l'utilisateur
 		const int CHOIX_MIN = 0,
-                CHOIX_MAX = 7;
-		string choixTexte = "votre choix [" + to_string(CHOIX_MIN) + " - " + to_string(CHOIX_MAX) + "] : ";
+				    CHOIX_MAX = 7;
+		string choixTexte = "votre choix ["
+								+ to_string(CHOIX_MIN) + " - "
+								+ to_string(CHOIX_MAX) + "] : ";
+
 		verifSaisie(choixTexte, choixOptions, CHOIX_MIN, CHOIX_MAX);
 
 		// Test pour savoir quelle fonction a été choisie par l'utilisateur
 		switch((Fonction) choixOptions){
 
 			case Fonction::EST_PAIR : {
-            // Déclaration des valeurs min et max par défaut
-            int valeur,
+				// Déclaration des valeurs min et max par défaut
+				int valeur,
 					 valeurMin = 0,
 					 valeurMax = 1000;
 
-            // Saisie et vérification de l'entrée utilisateur
-				string texteFonction1 = "entrer une valeur ["
-				                        + to_string(valeurMin) + " - " + to_string(valeurMax) + "] : ";
-				verifSaisie(texteFonction1, valeur, valeurMin, valeurMax);
+				// Saisie et vérification de l'entrée utilisateur
+				string texteFonctionEstPair = "entrer une valeur ["
+													 + to_string(valeurMin) + " - "
+													 + to_string(valeurMax) + "] : ";
+
+				verifSaisie(texteFonctionEstPair, valeur, valeurMin, valeurMax);
 
 				// Affichage si la valeur est paire ou impaire
 				cout << valeur << " est une valeur ";
@@ -90,15 +87,17 @@ int main() {
 			}
 
 			case Fonction::SOMME_CHIFFRES :{
-            // Déclaration des valeurs min et max par défaut
-            int valeur,
+				// Déclaration des valeurs min et max par défaut
+				int valeur,
 					 valeurMin = 0,
 					 valeurMax = 1000;
 
-            // Saisie et vérification de l'entrée utilisateur
-            string texteFonction2 = "entrer une valeur ["
-                                    + to_string(valeurMin) + " - " + to_string(valeurMax) + "] : ";
-				verifSaisie(texteFonction2, valeur, valeurMin, valeurMax);
+				// Saisie et vérification de l'entrée utilisateur
+				string texteFonctionSommeChiffres = "entrer une valeur ["
+															 + to_string(valeurMin) + " - "
+															 + to_string(valeurMax) + "] : ";
+
+				verifSaisie(texteFonctionSommeChiffres, valeur, valeurMin, valeurMax);
 
 				// Affichage de la somme
 				cout << "La somme des chiffres de " << valeur << " = " << sommeChiffres(valeur) << endl << endl;
@@ -107,22 +106,26 @@ int main() {
 			}
 
 			case Fonction::NBRE1ER :{
-            // Déclaration des valeurs min et max par défaut
-            int valeur,
+				// Déclaration des valeurs min et max par défaut
+				int valeur,
 					 valeurMin = 0,
 					 valeurMax = 1000;
 
-            // Saisie et vérification de l'entrée utilisateur pour la borne inférieure
-            string texteFonction3 = "     - debut : ["
-                                    + to_string(valeurMin) + " - " + to_string(valeurMax) + "] : ";
+				// Saisie et vérification de l'entrée utilisateur pour la borne inférieure
+				string texteFonctionNbre1er = "     - debut : ["
+													 + to_string(valeurMin) + " - "
+													 + to_string(valeurMax) + "] : ";
+
 				cout << "Determiner les nombres premiers compris dans un intervalle" << endl;
-				verifSaisie(texteFonction3, valeur, valeurMin, valeurMax);
+				verifSaisie(texteFonctionNbre1er, valeur, valeurMin, valeurMax);
 				valeurMin = valeur;
 
 				// Saisie et vérification de l'entrée utilisateur pour la borne supérieure
-				texteFonction3        = "     - fin   : ["
-				                        + to_string(valeurMin) + " - " + to_string(valeurMax) + "] : ";
-				verifSaisie(texteFonction3, valeur, valeurMin, valeurMax);
+				texteFonctionNbre1er        = "     - fin   : ["
+												 	 + to_string(valeurMin) + " - "
+												 	 + to_string(valeurMax) + "] : ";
+
+				verifSaisie(texteFonctionNbre1er, valeur, valeurMin, valeurMax);
 				valeurMax = valeur;
 
 				// Appels à la fonction nombre1er pour les valeurs entre les bornes sasies
@@ -131,143 +134,163 @@ int main() {
 						cout << "Le nombre " << i << " est un nombre premier" << endl;
 					}
 				}
+				cout << endl;
 
-            break;
+				break;
 			}
 
 			case Fonction::NBRE_ARMSTRONG :{
-            // Déclaration des valeurs min et max par défaut
-            int valeur,
+				// Déclaration des valeurs min et max par défaut
+				int valeur,
 					 valeurMin = 0,
 					 valeurMax = 1000;
 
-            // Saisie et vérification de l'entrée utilisateur pour la borne inférieure
-            string texteFonction4 = "     - debut : ["
-                                    + to_string(valeurMin) + " - " + to_string(valeurMax) + "] : ";
+				// Saisie et vérification de l'entrée utilisateur pour la borne inférieure
+				string texteFonctionNbreArmstrong = "     - debut : ["
+															 + to_string(valeurMin) + " - "
+															 + to_string(valeurMax) + "] : ";
+
 				cout << "Determiner les nombres de Armstrong compris dans un intervalle" << endl;
-				verifSaisie(texteFonction4, valeur, valeurMin, valeurMax);
+				verifSaisie(texteFonctionNbreArmstrong, valeur, valeurMin, valeurMax);
 				valeurMin = valeur;
 
-            // Saisie et vérification de l'entrée utilisateur pour la borne supérieure
-            texteFonction4        = "     - fin   : ["
-                                  + to_string(valeurMin) + " - " + to_string(valeurMax) + "] : ";
-				verifSaisie(texteFonction4, valeur, valeurMin, valeurMax);
+				// Saisie et vérification de l'entrée utilisateur pour la borne supérieure
+				texteFonctionNbreArmstrong        = "     - fin   : ["
+															 + to_string(valeurMin) + " - "
+															 + to_string(valeurMax) + "] : ";
+
+				verifSaisie(texteFonctionNbreArmstrong, valeur, valeurMin, valeurMax);
 				valeurMax = valeur;
 
-            // Appels à la fonction nbreArmstrong pour les valeurs entre les bornes sasies
-            for(int i = valeurMin; i <= valeurMax; ++i){
+				// Appels à la fonction nbreArmstrong pour les valeurs entre les bornes sasies
+				for(int i = valeurMin; i <= valeurMax; ++i){
 					if(nbreArmstrong(i)){
 						cout << "Le nombre " << i << " est un nombre de Armstrong" << endl;
 					}
 				}
+				cout << endl;
 
-            break;
+				break;
 			}
 
 			case Fonction::RANDOM :{
-			   // Déclaration des valeurs min et max par défaut
-            int valeur,
-               valeurMin = -100,
-               valeurMax = 100,
-               qteMin = 0,
-               qteMax = 100;
+				// Déclaration des valeurs min et max par défaut
+				int valeur,
+					 valeurMin = -100,
+					 valeurMax = 100,
+					 qteMin 	  = 0,
+					 qteMax 	  = 100;
 
-            // Choix de la valeur min
-            string texteFonction5 = "     - min   : ["
-                                  + to_string(valeurMin) + " - " + to_string(valeurMax) + "] : ";
-            verifSaisie(texteFonction5, valeur, valeurMin, valeurMax);
-            valeurMin = valeur;
+				// Choix de la valeur min
+				string texteFonctionRandom = "     - min   : ["
+													+ to_string(valeurMin) + " - "
+													+ to_string(valeurMax) + "] : ";
 
-            // Choix de la valeur max
-            texteFonction5        = "     - max   : ["
-                                  + to_string(valeurMin) + " - " + to_string(valeurMax) + "] : ";
-            verifSaisie(texteFonction5, valeur, valeurMin, valeurMax);
-            valeurMax = valeur;
+				verifSaisie(texteFonctionRandom, valeur, valeurMin, valeurMax);
+				valeurMin = valeur;
 
-            // Choix de nombre d'élément à générer
-            texteFonction5        = "     - nbre  : ["
-                                  + to_string(qteMin) + " - " + to_string(qteMax) + "] : ";
-            verifSaisie(texteFonction5, valeur, qteMin, qteMax);
+				// Choix de la valeur max
+				texteFonctionRandom        = "     - max   : ["
+													+ to_string(valeurMin) + " - "
+													+ to_string(valeurMax) + "] : ";
 
-            // Génération et affichage des nombres aléatoires
-            cout << "Voici des valeurs aleatoires ["
-                    + to_string(valeurMin) + " - " + to_string(valeurMax) + "] : " << endl;
+				verifSaisie(texteFonctionRandom, valeur, valeurMin, valeurMax);
+				valeurMax = valeur;
 
-            for(int noGeneration = 1; noGeneration <= valeur; ++noGeneration){
-               cout << random(valeurMin, valeurMax);
-               if(noGeneration != valeur){
-                  cout << ", ";
-               }
-               if(noGeneration % 10 == 0){
-                  cout << endl;
-               }
-            }
-            cout << endl;
+				// Choix de nombre d'élément à générer
+				texteFonctionRandom        = "     - nbre  : ["
+													+ to_string(qteMin) + " - "
+													+ to_string(qteMax) + "] : ";
 
-            break;
-         }
+				verifSaisie(texteFonctionRandom, valeur, qteMin, qteMax);
+
+				// Génération et affichage des nombres aléatoires
+				cout << "Voici des valeurs aleatoires ["
+						  + to_string(valeurMin) + " - "
+						  + to_string(valeurMax) + "] : " << endl;
+
+				for(int noGeneration = 1; noGeneration <= valeur; ++noGeneration){
+					cout << random(valeurMin, valeurMax);
+					if(noGeneration != valeur){
+						cout << ", ";
+					}
+				}
+				cout << endl << endl;
+
+				break;
+			}
 
 			case Fonction::BUFFER : {
-			   // Déclaration des variables pour stocker la saisie de l'utilisateur et exécuter la fonction buffer
-            const char CHAR_MIN_BUFFER = 127;
-            const char CHAR_MAJ_BUFFER = 0;
-            string saisie;
-            char lettreMin, lettreMaj;
+				// Déclaration des variables pour stocker la saisie de l'utilisateur et exécuter la fonction buffer
+				const char CHAR_MIN_BUFFER = numeric_limits<char>::max();
+				const char CHAR_MAJ_BUFFER = numeric_limits<char>::min();
+				string saisie;
+				char lettreMin,
+					  lettreMaj;
 
-            // Récupération de la saisie de l'utilisateur
-            cout << "entrer une phrase : ";
-            getline(cin, saisie);
+				// Récupération de la saisie de l'utilisateur
+				cout << "entrer une phrase : ";
+				getline(cin, saisie);
 
-            // Appel à la fonction buffer
-            unsigned int nbreCharTraites = buffer(saisie, lettreMin, lettreMaj);
+				// Appel à la fonction buffer
+				unsigned int nbreCharTraites = buffer(saisie, lettreMin, lettreMaj);
 
-            // Affichage des informations traitées par la fonction buffer
-            if (lettreMin != CHAR_MIN_BUFFER) {
-               cout << "la plus petite minuscule : " << lettreMin << endl;
-            }
+				// Affichage des informations traitées par la fonction buffer
+				if (lettreMin != CHAR_MIN_BUFFER) {
+					cout << "la plus petite minuscule : " << lettreMin << endl;
+				}
 
-            if (lettreMaj != CHAR_MAJ_BUFFER) {
-               cout << "la plus grande majuscule : " << lettreMaj << endl;
-            }
+				if (lettreMaj != CHAR_MAJ_BUFFER) {
+					cout << "la plus grande majuscule : " << lettreMaj << endl;
+				}
 
-               cout << "le nbre de caracteres    : " << nbreCharTraites << endl << endl;
+				cout << "le nbre de caracteres    : " << nbreCharTraites << endl << endl;
 
-            break;
-         }
+				break;
+			}
 
 			case Fonction::TRIGO : {
-            // Déclaration des valeurs min et max par défaut et sin, cos et tan.
-            int valeur,
-               valeurMin = 0,
-               valeurMax = 360;
-            double sin, cos, tan;
+				// Déclaration des valeurs min et max par défaut et sin, cos et tan.
+				int angle,
+					 angleMin = 0,
+					 angleMax = 360;
+				double sin,
+						 cos,
+						 tan;
 
-            // Récupération de la saisie de l'utilisateur
-            string texteFonction7 = "entrer une valeur ["
-                                  + to_string(valeurMin) + " - " + to_string(valeurMax) + "] : ";
-            verifSaisie(texteFonction7, valeur, valeurMin, valeurMax);
+				// Récupération de la saisie de l'utilisateur
+				string texteFonctionTrigo = "entrer une valeur ["
+												  + to_string(angleMin) + " - "
+												  + to_string(angleMax) + "] : ";
 
-            // Appel à la fonction trigo
-            trigo(valeur, sin, cos, tan);
+				verifSaisie(texteFonctionTrigo, angle, angleMin, angleMax);
 
-            // Affichage des valeurs du cos, sin et tan de l'angle saisie
-            cout << "sin(" << valeur << ") = " << sin << endl;
-            cout << "cos(" << valeur << ") = " << cos << endl;
-            cout << "tan(" << valeur << ") = " << tan << endl << endl;
+				// Appel à la fonction trigo
+				trigo(angle, sin, cos, tan);
+
+				// Affichage des valeurs du cos, sin et tan de l'angle saisie
+				cout << "sin(" << angle << ") = " << sin << endl
+					  << "cos(" << angle << ") = " << cos << endl
+					  << "tan(" << angle << ") = " << tan << endl << endl;
 
 				break;
 			}
 
 			case Fonction::REPOND_OUI : {
-			   veutQuitter = repondOui("voulez-vous quitter ? [o - n]", 'o', 'n');
-            break;
-         }
+				string texteFonctionRepondOui = "voulez-vous quitter ? ["
+														+ to_string(OUI) + " - "
+														+ to_string(NON) + "]";
 
+				veutQuitter = repondOui(texteFonctionRepondOui, OUI, NON);
+				cout << endl;
+
+				break;
+			}
 		}
 
 	} while(!veutQuitter);
 
-   return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }
 
 void verifSaisie(const string& texte, int& valeur, int borneInf, int borneSup) {

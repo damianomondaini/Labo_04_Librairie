@@ -2,9 +2,12 @@
   ---------------------------------------------------------------------------
   Fichier     : librairie.cpp
   Auteur(s)   : Anthony Jost, Damiano Mondaini
-  Date        : 05.11.200
-  But         : -
-  Remarque(s) : -
+  Date        : 05.11.2020
+  But         : Mettre à disposition les fonctions suivantes et expliquées
+  					 dans le fichier "librairie.h"
+
+  Remarque(s) : La source du code de la fonction random a été ajoutée en
+  					 commentaire dans le fichier "librairie.h"
   Compilateur : Mingw-w64 g++ 8.1.0
   ---------------------------------------------------------------------------
 */
@@ -22,26 +25,9 @@ bool estPair(int valeur){
    return estPair;
 }
 
-void trigo(double angleDeg, double& sinus, double& cosinus, double& tangente){
-   double angleRad = angleDeg * M_PI / 180;  // Transforme les degrés en radians
-   sinus = sin(angleRad);
-   cosinus = cos(angleRad);
-   tangente = tan(angleRad);
-}
-
-int random(int borneInf, int borneSup){
-   int valeurMaxRand = borneSup - borneInf + 1;
-   int reste = RAND_MAX % valeurMaxRand;
-   int valeurAleatoire;
-   do
-   {
-      valeurAleatoire = rand();
-   } while (valeurAleatoire >= RAND_MAX - reste);
-   return borneInf + valeurAleatoire % valeurMaxRand;
-}
-
 int sommeChiffres(int valeur){
 	int sommeChiffres = 0;
+
 	while(valeur != 0){
 		sommeChiffres += valeur % 10;
 		valeur /= 10;
@@ -51,7 +37,11 @@ int sommeChiffres(int valeur){
 
 bool nbre1er(int valeur){
 	bool estPremier = true;
-	int compteur = 0;
+	int compteur 	 = 0;
+
+	// La variable i va parcourir les valeurs entières entre 1 et la racine carrée de la valeur passée en paramètre.
+	// Un nombre non-premier ayant de toute façon un diviseur inférieur ou égal à sa racine,
+	// il n'y a aucune raison d'aller au delà de cette racine.
 	for(int i = 1; i <= (int)sqrt((double)valeur); ++i){
 		if(valeur % i == 0){
 			++compteur;
@@ -65,8 +55,9 @@ bool nbre1er(int valeur){
 
 bool nbreArmstrong(int valeur) {
 	bool nbreArmstrong;
-	int sommeCube = 0;
-	int temp = valeur;
+	int sommeCube = 0,
+		 temp 	  = valeur;
+
 	while(temp != 0){
 		sommeCube += (int)pow((double)(temp % 10),3);
 		temp /= 10;
@@ -77,6 +68,18 @@ bool nbreArmstrong(int valeur) {
 		nbreArmstrong = false;
 	}
 	return nbreArmstrong;
+}
+
+int random(int borneInf, int borneSup){
+	int valeurMaxRand = borneSup - borneInf + 1,
+		 reste 			= RAND_MAX % valeurMaxRand,
+		 valeurAleatoire;
+
+	do
+	{
+		valeurAleatoire = rand();
+	} while (valeurAleatoire >= RAND_MAX - reste);
+	return borneInf + valeurAleatoire % valeurMaxRand;
 }
 
 unsigned int buffer(const std::string& contenuBuffer, char& lettreMin, char& lettreMaj) {
@@ -101,33 +104,40 @@ unsigned int buffer(const std::string& contenuBuffer, char& lettreMin, char& let
    return contenuBuffer.length();
 }
 
+void trigo(double angleDegres, double& sinus, double& cosinus, double& tangente){
+	double angleRadians = angleDegres * M_PI / 180;  // Transforme les degrés en radians
+
+	sinus 	= sin(angleRadians);
+	cosinus  = cos(angleRadians);
+	tangente = tan(angleRadians);
+}
+
 bool repondOui(const std::string& question, unsigned char reponseOui, unsigned char reponseNon){
-   // Déclaration des variables
-   unsigned char reponse;
-   unsigned char reponseOuiMaj;
-   unsigned char reponseOuiMin;
-   unsigned char reponseNonMaj;
-   unsigned char reponseNonMin;
+   unsigned char reponse,
+   				  reponseOuiMaj,
+   				  reponseOuiMin,
+   				  reponseNonMaj,
+   				  reponseNonMin;
 
    // Détermination du caractère minuscule et majuscule pour répondre oui
    if (islower(reponseOui)) {
       reponseOuiMin = reponseOui;
-      reponseOuiMaj = reponseOui - 32;
+      reponseOuiMaj = toupper(reponseOui);
    } else {
-      reponseOuiMin = reponseOui + 32;
+      reponseOuiMin = tolower(reponseOui);
       reponseOuiMaj = reponseOui;
    }
 
    // Détermination du caractère minuscule et majuscule pour répondre non
    if (islower(reponseNon)) {
       reponseNonMin = reponseNon;
-      reponseNonMaj = reponseNon - 32;
+      reponseNonMaj = toupper(reponseNon);
    } else {
-      reponseNonMin = reponseNon + 32;
+      reponseNonMin = tolower(reponseNon);
       reponseNonMaj = reponseNon;
    }
 
-   // Boucle faite tant que l'utilisateur ne répond ni le caractère pour répondre oui nile caractère pour répondre non
+   // Boucle faite tant que l'utilisateur ne répond ni le caractère pour répondre oui ni le caractère pour répondre non
    // qu'il soit majuscule ou minuscule
    do {
       std::cout << question << std::endl;
