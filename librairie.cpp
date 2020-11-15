@@ -1,11 +1,20 @@
-//
-// Created by damia on 05.11.2020.
-//
+/*
+  ---------------------------------------------------------------------------
+  Fichier     : librairie.cpp
+  Auteur(s)   : Anthony Jost, Damiano Mondaini
+  Date        : 05.11.200
+  But         : -
+  Remarque(s) : -
+  Compilateur : Mingw-w64 g++ 8.1.0
+  ---------------------------------------------------------------------------
+*/
 
 #include <cmath>
 #include <cstdlib>
 #include <string>
 #include <cctype>
+#include <iostream>
+#include <limits>
 #include "librairie.h"
 
 bool estPair(int valeur){
@@ -14,7 +23,7 @@ bool estPair(int valeur){
 }
 
 void trigo(double angleDeg, double& sinus, double& cosinus, double& tangente){
-   double angleRad = angleDeg * M_PI / 180;
+   double angleRad = angleDeg * M_PI / 180;  // Transforme les degrés en radians
    sinus = sin(angleRad);
    cosinus = cos(angleRad);
    tangente = tan(angleRad);
@@ -90,4 +99,51 @@ unsigned int buffer(const std::string& contenuBuffer, char& lettreMin, char& let
       }
    }
    return contenuBuffer.length();
+}
+
+bool repondOui(const std::string& question, unsigned char reponseOui, unsigned char reponseNon){
+   // Déclaration des variables
+   unsigned char reponse;
+   unsigned char reponseOuiMaj;
+   unsigned char reponseOuiMin;
+   unsigned char reponseNonMaj;
+   unsigned char reponseNonMin;
+
+   // Détermination du caractère minuscule et majuscule pour répondre oui
+   if (islower(reponseOui)) {
+      reponseOuiMin = reponseOui;
+      reponseOuiMaj = reponseOui - 32;
+   } else {
+      reponseOuiMin = reponseOui + 32;
+      reponseOuiMaj = reponseOui;
+   }
+
+   // Détermination du caractère minuscule et majuscule pour répondre non
+   if (islower(reponseNon)) {
+      reponseNonMin = reponseNon;
+      reponseNonMaj = reponseNon - 32;
+   } else {
+      reponseNonMin = reponseNon + 32;
+      reponseNonMaj = reponseNon;
+   }
+
+   // Boucle faite tant que l'utilisateur ne répond ni le caractère pour répondre oui nile caractère pour répondre non
+   // qu'il soit majuscule ou minuscule
+   do {
+      std::cout << question << std::endl;
+      std::cin >> reponse;
+
+      if (std::cin.fail()) {
+         std::cin.clear();
+      }
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+      if (reponse == reponseOuiMin || reponse == reponseOuiMaj) {
+         return true;
+      }
+
+      if (reponse == reponseNonMin || reponse == reponseNonMaj) {
+         return false;
+      }
+   } while (true);
 }

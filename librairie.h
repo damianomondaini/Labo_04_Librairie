@@ -1,6 +1,13 @@
-//
-// Created by damia on 05.11.2020.
-//
+/*
+  ---------------------------------------------------------------------------
+  Fichier     : librairie.h
+  Auteur(s)   : Anthony Jost, Damiano Mondaini
+  Date        : 05.11.200
+  But         : -
+  Remarque(s) : -
+  Compilateur : Mingw-w64 g++ 8.1.0
+  ---------------------------------------------------------------------------
+*/
 
 #ifndef LABO_04_LIBRAIRIE_LIBRAIRIE_H
 #define LABO_04_LIBRAIRIE_LIBRAIRIE_H
@@ -35,5 +42,10 @@ unsigned int buffer(const std::string& contenuBuffer, char& lettreMin, char& let
 // Génère un entier entre deux bornes incluses
 // Retourne l'entier généré par un entier
 int random(int borneInf, int borneSup);
+
+
+// Détermine si l'utilisateur à reponse o ou n pour oui ou non, repose la question si aucune correspondance n'est trouvée
+// Retourne un booléen true si oui ou un booléen false si non
+bool repondOui(const std::string& question, unsigned char reponseOui, unsigned char reponseNon);
 
 #endif //LABO_04_LIBRAIRIE_LIBRAIRIE_H

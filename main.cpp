@@ -4,8 +4,23 @@
   Nom du labo : Labo 04 Librairie
   Auteur(s)   : Anthony Jost, Damiano Mondaini
   Date        : 05.11.200
-  But         : -
-  Remarque(s) : -
+  But         : - Ecrire une librairie mettant à disposition les 8 fonctions
+                  suivantes:
+
+                  1) estPair
+                  2) sommeChiffres
+                  3) nbre1er
+                  4) nbreArmstrong
+                  5) random
+                  6) buffer
+                  7) trigo
+                  8) repondOui
+                - La librairie doit être réutilisable (pas de valeurs en dur)
+
+  Remarque(s) : - La librairie doit être externe au fichier principal
+                  (compilation séparée)
+                - Utilisation de types énumérés, boucles et fonctions
+                  demandée
   Compilateur : Mingw-w64 g++ 8.1.0
   ---------------------------------------------------------------------------
 */
@@ -20,7 +35,7 @@
 using namespace std;
 
 // Enumération pour trouver quelle fonction exécuter lors de la saisie de l'utilisateur
-enum class Fonction {EST_PAIR = 1, SOMME_CHIFFRES, NBRE1ER, NBRE_ARMSTRONG, RANDOM, BUFFER, TRIGO, REPOND_OUI = 0};
+enum class Fonction {REPOND_OUI, EST_PAIR, SOMME_CHIFFRES, NBRE1ER, NBRE_ARMSTRONG, RANDOM, BUFFER, TRIGO};
 
 // Fonction permettant de demander à l'utilisateur d'entrer une valeur entre deux bornes incluses tant que la
 // valeur n'est pas entre les deux bornes
@@ -29,6 +44,7 @@ void verifSaisie(const string& texte, int& valeur, int borneInf, int borneSup);
 int main() {
 
 	int choixOptions; // Récupère le choix de l'utilisateur
+	bool veutQuitter = false;
 
 	// Boucle affichant le menu et permettant de lancer les fonctions tant que l'utilisateur ne souhaite pas quitter
 	do{
@@ -243,16 +259,13 @@ int main() {
 			}
 
 			case Fonction::REPOND_OUI : {
-            break;
-         }
-
-			default : {
+			   veutQuitter = repondOui("voulez-vous quitter ? [o - n]", 'o', 'n');
             break;
          }
 
 		}
 
-	} while(choixOptions != 0);
+	} while(!veutQuitter);
 
    return EXIT_SUCCESS;
 }
