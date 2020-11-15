@@ -80,8 +80,8 @@ bool nbreArmstrong(int valeur) {
 }
 
 unsigned int buffer(const std::string& contenuBuffer, char& lettreMin, char& lettreMaj) {
-   lettreMin = 127;
-   lettreMaj = 0;
+   lettreMin = std::numeric_limits<char>::max();
+   lettreMaj = std::numeric_limits<char>::min();
    // Boucle sur chaque caractère
    for (char charPos : contenuBuffer) { // Condition suggérée par CLion
       // Test si le caractère est alphabètique
